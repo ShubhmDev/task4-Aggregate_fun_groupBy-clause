@@ -20,7 +20,7 @@ GROUP BY  m.Name;
 -- 3.Average Number of Loans per Librarian [Shows how many loans each librarian has handled and the average loan duration.]
 SELECT lib.Name AS LibrarianName,
 COUNT(l.LoanID) AS TotalLoans,
-AVG(JULIANDAY(COALESCE(l.ReturnDate, DATE('now'))) - JULIANDAY(l.LoanDate)) AS AvgLoanDuration
+AVG(DATEDIFF(COALESCE(l.ReturnDate, CURDATE()), l.LoanDate)) AS AvgLoanDuration
 FROM Loan l
 JOIN Librarian lib ON l.LibrarianID = lib.LibrarianID
 GROUP BY lib.Name;
